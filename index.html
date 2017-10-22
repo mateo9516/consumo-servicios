@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <script
+            src="https://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+            crossorigin="anonymous">
+            </script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <script>
+            /* global $ */
+            var root = 'https://jsonplaceholder.typicode.com';
+
+            $.ajax({
+            url: root + '/posts/1',
+            method: 'GET',
+            datatype :'json',
+            success : function(json) {
+                $('<h1/>').text(json.title).appendTo('body');
+                $('<div class="content"/>').text(json.idusuario).appendTo('body');
+                $('<div class="content"/>').text(json.id).appendTo('body');
+                $('<div class="content"/>').text(json.body).appendTo('body');
+                
+                
+            },
+            });
+            
+        </script>
+        <script>
+        
+            /* global $ */
+            function post()
+            {
+                var root = "https://jsonplaceholder.typicode.com";
+                $.ajax({                        
+                    type: "POST",                 
+                    url: root + '/posts',                     
+                    data: $("#formulario").serialize(), 
+                    success: function(data)             
+                    {
+                        $('<h1/>').text('Transferencia exitosa.').appendTo('body');   
+                        console.log("transferencia exitosa.");
+                        $('#resp').html(data);               
+                    },
+                    complete : function(xhr, status) {
+                       alert('Petición realizada');
+                    }
+                    
+                });
+            }
+        </script>
+        <script>
+        
+            /* global $ */
+            function update()
+            {
+                var root = "https://jsonplaceholder.typicode.com";
+                $.ajax({                        
+                    type: "PUT",                 
+                    url: root + '/posts/1',                     
+                    data: $("#formulario").serialize(), 
+                    success: function(data)             
+                    {
+                        $('<h1/>').text('actualizacion exitosa.').appendTo('body');   
+                        console.log("actualizdo");
+                        $('#resp').html(data);               
+                    },
+                    error : function(xhr, status) {
+                      alert('Disculpe, existió un problema');
+                    },
+                    complete : function(xhr, status) {
+                       alert('Petición realizada');
+                    }
+                    
+                });
+            }
+        </script>
+        <script>
+        
+            /* global $ */
+            function borrar()
+            {
+                var root = "https://jsonplaceholder.typicode.com";
+                $.ajax({                        
+                    type: "DELETE",                 
+                    url: root + '/posts/1',
+                    complete : function(xhr, status) {
+                       alert('eliminado');
+                    }
+                });
+            }
+        </script>
+        
+        
+        <title>
+            
+        </title>
+    </head>
+    <body>
+        <form method="post" id="formulario">
+            <input type="text" name="idusuario" placeholder="idusuario" />
+            <input type="text" name="id" placeholder="id" />
+            <input type="text" name="title" placeholder="title" />
+            <input type="text" name="body" placeholder="body" />
+            <button onclick="post()">Subir</button>
+            <button onclick="update()">actualizar</button>
+            <button onclick="borrar()">eliminar</button>
+        </form>
+    </body>
+    
+
+</html>
